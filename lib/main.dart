@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_child_provider/dogs.dart';
-import 'package:riverpod_child_provider/kennel.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -42,8 +41,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(ref.watch(dogProvider(DogType.pittie).notifier).produce()),
-            Text(ref.watch(dogProvider(DogType.shiba).notifier).produce()),
+            Text(ref.watch(dogProvider(ShibaNotifier()).notifier).produce()),
+            Text(ref.watch(dogProvider(PittieNotifier()).notifier).produce()),
             Text(
               'hi',
               style: Theme.of(context).textTheme.headline4,

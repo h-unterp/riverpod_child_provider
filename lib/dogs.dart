@@ -3,22 +3,18 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'dogs.freezed.dart';
 
-enum DogType { shiba, pittie }
-
 @freezed
 class DogState with _$DogState {
-  const factory DogState({DogType? dogType, String? dogMessage}) = _DogState;
+  const factory DogState() = _DogState;
 }
 
 final dogProvider =
-    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
+    StateNotifierProvider.family<DogStateNotifier, DogState, DogStateNotifier>(
         (ref, type) {
-  switch (type) {
-    case DogType.shiba:
-      return ShibaNotifier();
-
-    case DogType.pittie:
-      return PittieNotifier();
+  if (type is ShibaNotifier) {
+    return ShibaNotifier();
+  } else {
+    return PittieNotifier();
   }
 });
 
@@ -26,14 +22,14 @@ abstract class DogStateNotifier extends StateNotifier<DogState> {
   DogStateNotifier(super.state);
 
   String produce() {
-    return state.dogType.toString() + DateTime.now().toString();
+    return runtimeType.toString() + DateTime.now().toString();
   }
 }
 
 class ShibaNotifier extends DogStateNotifier {
-  ShibaNotifier() : super(const DogState(dogType: DogType.shiba));
+  ShibaNotifier() : super(const DogState());
 }
 
 class PittieNotifier extends DogStateNotifier {
-  PittieNotifier() : super(const DogState(dogType: DogType.pittie));
+  PittieNotifier() : super(const DogState());
 }
