@@ -50,9 +50,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              ref.watch(kennelProvider).dogState.produce(),
-            ),
+            Text(ref.watch(ref.watch(kennelProvider).dog.notifier).produce()),
             Text(
               'hi',
               style: Theme.of(context).textTheme.headline4,
@@ -69,7 +67,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 Expanded(
                     child: TextButton(
                   onPressed: () {
-                    ref.read(kennelProvider.notifier).changeDog(Shiba());
+                    ref.read(kennelProvider.notifier).changeDog(shibaProvider);
                   },
                   child: const Text("Shiba", style: TextStyle(fontSize: 30)),
                 )),
@@ -77,7 +75,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      ref.read(kennelProvider.notifier).changeDog(Pittie());
+                      ref
+                          .read(kennelProvider.notifier)
+                          .changeDog(pittieProvider);
                     },
                     child: const Text("Pittie", style: TextStyle(fontSize: 30)),
                   ),

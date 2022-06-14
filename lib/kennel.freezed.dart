@@ -16,7 +16,8 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$KennelState {
-  DogStateNotifier get dogState => throw _privateConstructorUsedError;
+  StateNotifierProvider<DogStateNotifier, DogState> get dog =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $KennelStateCopyWith<KennelState> get copyWith =>
@@ -28,7 +29,7 @@ abstract class $KennelStateCopyWith<$Res> {
   factory $KennelStateCopyWith(
           KennelState value, $Res Function(KennelState) then) =
       _$KennelStateCopyWithImpl<$Res>;
-  $Res call({DogStateNotifier dogState});
+  $Res call({StateNotifierProvider<DogStateNotifier, DogState> dog});
 }
 
 /// @nodoc
@@ -41,13 +42,13 @@ class _$KennelStateCopyWithImpl<$Res> implements $KennelStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? dogState = freezed,
+    Object? dog = freezed,
   }) {
     return _then(_value.copyWith(
-      dogState: dogState == freezed
-          ? _value.dogState
-          : dogState // ignore: cast_nullable_to_non_nullable
-              as DogStateNotifier,
+      dog: dog == freezed
+          ? _value.dog
+          : dog // ignore: cast_nullable_to_non_nullable
+              as StateNotifierProvider<DogStateNotifier, DogState>,
     ));
   }
 }
@@ -59,7 +60,7 @@ abstract class _$$_KennelStateCopyWith<$Res>
           _$_KennelState value, $Res Function(_$_KennelState) then) =
       __$$_KennelStateCopyWithImpl<$Res>;
   @override
-  $Res call({DogStateNotifier dogState});
+  $Res call({StateNotifierProvider<DogStateNotifier, DogState> dog});
 }
 
 /// @nodoc
@@ -74,13 +75,13 @@ class __$$_KennelStateCopyWithImpl<$Res> extends _$KennelStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? dogState = freezed,
+    Object? dog = freezed,
   }) {
     return _then(_$_KennelState(
-      dogState == freezed
-          ? _value.dogState
-          : dogState // ignore: cast_nullable_to_non_nullable
-              as DogStateNotifier,
+      dog == freezed
+          ? _value.dog
+          : dog // ignore: cast_nullable_to_non_nullable
+              as StateNotifierProvider<DogStateNotifier, DogState>,
     ));
   }
 }
@@ -88,14 +89,14 @@ class __$$_KennelStateCopyWithImpl<$Res> extends _$KennelStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_KennelState implements _KennelState {
-  const _$_KennelState(this.dogState);
+  const _$_KennelState(this.dog);
 
   @override
-  final DogStateNotifier dogState;
+  final StateNotifierProvider<DogStateNotifier, DogState> dog;
 
   @override
   String toString() {
-    return 'KennelState(dogState: $dogState)';
+    return 'KennelState(dog: $dog)';
   }
 
   @override
@@ -103,12 +104,12 @@ class _$_KennelState implements _KennelState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_KennelState &&
-            const DeepCollectionEquality().equals(other.dogState, dogState));
+            const DeepCollectionEquality().equals(other.dog, dog));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(dogState));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(dog));
 
   @JsonKey(ignore: true)
   @override
@@ -117,10 +118,13 @@ class _$_KennelState implements _KennelState {
 }
 
 abstract class _KennelState implements KennelState {
-  const factory _KennelState(final DogStateNotifier dogState) = _$_KennelState;
+  const factory _KennelState(
+          final StateNotifierProvider<DogStateNotifier, DogState> dog) =
+      _$_KennelState;
 
   @override
-  DogStateNotifier get dogState => throw _privateConstructorUsedError;
+  StateNotifierProvider<DogStateNotifier, DogState> get dog =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_KennelStateCopyWith<_$_KennelState> get copyWith =>
