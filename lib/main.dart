@@ -3,14 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_child_provider/dogs.dart';
 import 'package:riverpod_child_provider/kennel.dart';
 
-final shibaProvider = StateNotifierProvider<Shiba, DogState>((ref) {
-  return Shiba();
-});
-
-final pittieProvider = StateNotifierProvider<Pittie, DogState>((ref) {
-  return Pittie();
-});
-
 void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -50,7 +42,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(ref.watch(ref.watch(kennelProvider).dog.notifier).produce()),
+            Text(ref.watch(dogProvider(DogType.pittie).notifier).produce()),
+            Text(ref.watch(dogProvider(DogType.shiba).notifier).produce()),
             Text(
               'hi',
               style: Theme.of(context).textTheme.headline4,
@@ -58,31 +51,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           ],
         ),
       ),
-      bottomSheet: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 120,
-          child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(children: [
-                Expanded(
-                    child: TextButton(
-                  onPressed: () {
-                    ref.read(kennelProvider.notifier).changeDog(shibaProvider);
-                  },
-                  child: const Text("Shiba", style: TextStyle(fontSize: 30)),
-                )),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      ref
-                          .read(kennelProvider.notifier)
-                          .changeDog(pittieProvider);
-                    },
-                    child: const Text("Pittie", style: TextStyle(fontSize: 30)),
-                  ),
-                )
-              ]))),
     );
   }
 }

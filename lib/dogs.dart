@@ -10,21 +10,30 @@ class DogState with _$DogState {
   const factory DogState({DogType? dogType, String? dogMessage}) = _DogState;
 }
 
+final dogProvider =
+    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
+        (ref, type) {
+  switch (type) {
+    case DogType.shiba:
+      return ShibaNotifier();
+
+    case DogType.pittie:
+      return PittieNotifier();
+  }
+});
+
 abstract class DogStateNotifier extends StateNotifier<DogState> {
-  DogStateNotifier() : super(const DogState());
+  DogStateNotifier(super.state);
+
   String produce() {
     return state.dogType.toString() + DateTime.now().toString();
   }
 }
 
-class Shiba extends DogStateNotifier {
-  Shiba() {
-    state = const DogState(dogType: DogType.shiba);
-  }
+class ShibaNotifier extends DogStateNotifier {
+  ShibaNotifier() : super(const DogState(dogType: DogType.shiba));
 }
 
-class Pittie extends DogStateNotifier {
-  Pittie() {
-    state = const DogState(dogType: DogType.pittie);
-  }
+class PittieNotifier extends DogStateNotifier {
+  PittieNotifier() : super(const DogState(dogType: DogType.pittie));
 }
