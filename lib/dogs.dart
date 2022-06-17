@@ -5,7 +5,7 @@ part 'dogs.freezed.dart';
 
 @freezed
 class DogState with _$DogState {
-  const factory DogState() = _DogState;
+  const factory DogState(String setMe) = _DogState;
 }
 
 final dogProvider =
@@ -24,12 +24,16 @@ abstract class DogStateNotifier extends StateNotifier<DogState> {
   String produce() {
     return runtimeType.toString() + DateTime.now().toString();
   }
+
+  setIt(String s) {
+    state = state.copyWith(setMe: s);
+  }
 }
 
 class ShibaNotifier extends DogStateNotifier {
-  ShibaNotifier() : super(const DogState());
+  ShibaNotifier() : super(DogState("SHIBA INIT${DateTime.now()}"));
 }
 
 class PittieNotifier extends DogStateNotifier {
-  PittieNotifier() : super(const DogState());
+  PittieNotifier() : super(DogState("PITTIE INIT${DateTime.now()}"));
 }

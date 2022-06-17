@@ -41,12 +41,24 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(ref.watch(dogProvider(ShibaNotifier()).notifier).produce()),
-            Text(ref.watch(dogProvider(PittieNotifier()).notifier).produce()),
-            Text(
-              'hi',
-              style: Theme.of(context).textTheme.headline4,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(ref.watch(dogProvider(ShibaNotifier())).setMe,
+                  style: const TextStyle(fontSize: 25)),
             ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(ref.watch(dogProvider(PittieNotifier())).setMe,
+                  style: const TextStyle(fontSize: 25)),
+            ),
+            TextButton(
+                onPressed: () {
+                  ref.read(dogProvider(ShibaNotifier()).notifier).setIt("Hey");
+                },
+                child: const Text(
+                  "Set it",
+                  style: TextStyle(fontSize: 25),
+                ))
           ],
         ),
       ),
