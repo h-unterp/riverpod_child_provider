@@ -3,15 +3,17 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'dogs.freezed.dart';
 
+enum DogType { shiba, pittie }
+
 @freezed
 class DogState with _$DogState {
   const factory DogState(String setMe) = _DogState;
 }
 
 final dogProvider =
-    StateNotifierProvider.family<DogStateNotifier, DogState, DogStateNotifier>(
+    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
         (ref, type) {
-  if (type is ShibaNotifier) {
+  if (type == DogType.shiba) {
     return ShibaNotifier();
   } else {
     return PittieNotifier();

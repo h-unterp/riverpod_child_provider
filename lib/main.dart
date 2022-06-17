@@ -43,17 +43,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(ref.watch(dogProvider(ShibaNotifier())).setMe,
+              child: Text(ref.watch(dogProvider(DogType.shiba)).setMe,
                   style: const TextStyle(fontSize: 25)),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(ref.watch(dogProvider(PittieNotifier())).setMe,
+              child: Text(ref.watch(dogProvider(DogType.pittie)).setMe,
                   style: const TextStyle(fontSize: 25)),
             ),
             TextButton(
                 onPressed: () {
-                  ref.read(dogProvider(ShibaNotifier()).notifier).setIt("Hey");
+                  ref.read(dogProvider(DogType.shiba).notifier).setIt("Hey");
                 },
                 child: const Text(
                   "Set it",
