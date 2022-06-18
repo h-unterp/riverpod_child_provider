@@ -3,8 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'dogs.freezed.dart';
 
-enum DogType { shiba, pittie }
-
 @freezed
 class DogState with _$DogState {
   const factory DogState(List<Dog> dogs) = _DogState;
@@ -15,18 +13,12 @@ class Dog with _$Dog {
   const factory Dog(String dogId, bool flea) = _Dog;
 }
 
-final dogProvider =
-    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
-        (ref, type) {
-  if (type == DogType.shiba) {
-    return ShibaNotifier();
-  } else {
-    return PittieNotifier();
-  }
+final dogProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
+  return DogStateNotifier();
 });
 
-abstract class DogStateNotifier extends StateNotifier<DogState> {
-  DogStateNotifier(super.state);
+class DogStateNotifier extends StateNotifier<DogState> {
+  DogStateNotifier() : super(const DogState([Dog("one", false)]));
 
   setDog(Dog d) {
     int idx = state.dogs.indexWhere((x) => x.dogId == d.dogId);
@@ -52,21 +44,4 @@ abstract class DogStateNotifier extends StateNotifier<DogState> {
       return null;
     }
   }
-
-  Future<List<String>> pageFetch(int offset) async {
-    final List<String> nextUsersList =
-        List.generate(5, (int index) => ' - $offset$index');
-    return nextUsersList;
-  }
-}
-
-class ShibaNotifier extends DogStateNotifier {
-  ShibaNotifier() : super(const DogState([])) {
-    setDog(const Dog("one", false));
-    setDog(const Dog("two", false));
-  }
-}
-
-class PittieNotifier extends DogStateNotifier {
-  PittieNotifier() : super(const DogState([]));
 }

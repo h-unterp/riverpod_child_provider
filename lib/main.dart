@@ -31,33 +31,6 @@ class MyHomePage extends ConsumerStatefulWidget {
   ConsumerState<MyHomePage> createState() => _MyHomePageState();
 }
 
-Widget myWidget(BuildContext context, WidgetRef ref) {
-  return PaginationView<String>(
-    paginationViewType: PaginationViewType.listView,
-    itemBuilder: (BuildContext context, String fid, int index) {
-      return Text(
-          ref
-              .watch(dogProvider(DogType.shiba).notifier)
-              .getDog("one")!
-              .flea
-              .toString(),
-          style: const TextStyle(fontSize: 25));
-    },
-    pageFetch: ref.read(dogProvider(DogType.shiba).notifier).pageFetch,
-    pullToRefresh: true,
-    onError: (dynamic error) => const Center(
-      child: Text('Some error occured. Sorry!'),
-    ),
-    onEmpty: const Text('Sorry! This is empty'),
-    bottomLoader: const Center(
-      child: CircularProgressIndicator(),
-    ),
-    initialLoader: const Center(
-      child: CircularProgressIndicator(),
-    ),
-  );
-}
-
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
@@ -73,16 +46,15 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   ref
-                      .watch(dogProvider(DogType.shiba).notifier)
+                      .watch(dogProvider.notifier)
                       .getDog("one")!
                       .flea
                       .toString(),
                   style: const TextStyle(fontSize: 25)),
             ),
-            Flexible(child: myWidget(context, ref)),
             TextButton(
                 onPressed: () {
-                  ref.read(dogProvider(DogType.shiba).notifier).setFlea("one");
+                  ref.read(dogProvider.notifier).setFlea("one");
                 },
                 child: const Text(
                   "Set it",
