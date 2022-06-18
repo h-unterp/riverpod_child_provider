@@ -44,17 +44,17 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  ref
-                      .watch(dogProvider.notifier)
-                      .getDog("one")!
-                      .flea
-                      .toString(),
+              child: Text("dogProvider ${ref.watch(dogProvider('one'))!.flea}",
+                  style: const TextStyle(fontSize: 25)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text("fleaProvider ${ref.watch(fleaProvider('one'))}",
                   style: const TextStyle(fontSize: 25)),
             ),
             TextButton(
                 onPressed: () {
-                  ref.read(dogProvider.notifier).setFlea("one");
+                  ref.read(dogStateProvider.notifier).setFlea("one");
                 },
                 child: const Text(
                   "Set it",

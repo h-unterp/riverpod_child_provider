@@ -13,8 +13,17 @@ class Dog with _$Dog {
   const factory Dog(String dogId, bool flea) = _Dog;
 }
 
-final dogProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
+final dogStateProvider =
+    StateNotifierProvider<DogStateNotifier, DogState>((ref) {
   return DogStateNotifier();
+});
+
+final dogProvider = Provider.family<Dog?, String>((ref, id) {
+  return ref.watch(dogStateProvider.notifier).getDog(id);
+});
+
+final fleaProvider = Provider.family<String, String>((ref, id) {
+  return ref.watch(dogStateProvider.notifier).getDog(id)!.flea.toString();
 });
 
 class DogStateNotifier extends StateNotifier<DogState> {
