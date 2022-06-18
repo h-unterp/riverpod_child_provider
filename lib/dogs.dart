@@ -7,7 +7,12 @@ enum DogType { shiba, pittie }
 
 @freezed
 class DogState with _$DogState {
-  const factory DogState(String setMe) = _DogState;
+  const factory DogState(List<Dog> dogs) = _DogState;
+}
+
+@freezed
+class Dog with _$Dog {
+  const factory Dog(String dogId, bool flea) = _Dog;
 }
 
 final dogProvider =
@@ -23,19 +28,45 @@ final dogProvider =
 abstract class DogStateNotifier extends StateNotifier<DogState> {
   DogStateNotifier(super.state);
 
-  String produce() {
-    return runtimeType.toString() + DateTime.now().toString();
+  setDog(Dog d) {
+    int idx = state.dogs.indexWhere((x) => x.dogId == d.dogId);
+    if (idx != -1) {
+      List<Dog> newList = List.from(state.dogs);
+      newList[idx] = d;
+      state = state.copyWith(dogs: newList);
+    } else {
+      state = state.copyWith(dogs: [...state.dogs, d]);
+    }
   }
 
-  setIt(String s) {
-    state = state.copyWith(setMe: s);
+  setFlea(String d) {
+    Dog dd = Dog(d, true);
+    setDog(dd);
+  }
+
+  Dog? getDog(String s) {
+    int idx = state.dogs.indexWhere((x) => x.dogId == s);
+    if (idx != -1) {
+      return state.dogs[idx];
+    } else {
+      return null;
+    }
+  }
+
+  Future<List<String>> pageFetch(int offset) async {
+    final List<String> nextUsersList =
+        List.generate(5, (int index) => ' - $offset$index');
+    return nextUsersList;
   }
 }
 
 class ShibaNotifier extends DogStateNotifier {
-  ShibaNotifier() : super(DogState("SHIBA INIT${DateTime.now()}"));
+  ShibaNotifier() : super(const DogState([])) {
+    setDog(const Dog("one", false));
+    setDog(const Dog("two", false));
+  }
 }
 
 class PittieNotifier extends DogStateNotifier {
-  PittieNotifier() : super(DogState("PITTIE INIT${DateTime.now()}"));
+  PittieNotifier() : super(const DogState([]));
 }

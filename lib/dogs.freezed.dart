@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$DogState {
-  String get setMe => throw _privateConstructorUsedError;
+  List<Dog> get dogs => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $DogStateCopyWith<DogState> get copyWith =>
@@ -27,7 +27,7 @@ mixin _$DogState {
 abstract class $DogStateCopyWith<$Res> {
   factory $DogStateCopyWith(DogState value, $Res Function(DogState) then) =
       _$DogStateCopyWithImpl<$Res>;
-  $Res call({String setMe});
+  $Res call({List<Dog> dogs});
 }
 
 /// @nodoc
@@ -40,13 +40,13 @@ class _$DogStateCopyWithImpl<$Res> implements $DogStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? setMe = freezed,
+    Object? dogs = freezed,
   }) {
     return _then(_value.copyWith(
-      setMe: setMe == freezed
-          ? _value.setMe
-          : setMe // ignore: cast_nullable_to_non_nullable
-              as String,
+      dogs: dogs == freezed
+          ? _value.dogs
+          : dogs // ignore: cast_nullable_to_non_nullable
+              as List<Dog>,
     ));
   }
 }
@@ -57,7 +57,7 @@ abstract class _$$_DogStateCopyWith<$Res> implements $DogStateCopyWith<$Res> {
           _$_DogState value, $Res Function(_$_DogState) then) =
       __$$_DogStateCopyWithImpl<$Res>;
   @override
-  $Res call({String setMe});
+  $Res call({List<Dog> dogs});
 }
 
 /// @nodoc
@@ -72,13 +72,13 @@ class __$$_DogStateCopyWithImpl<$Res> extends _$DogStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? setMe = freezed,
+    Object? dogs = freezed,
   }) {
     return _then(_$_DogState(
-      setMe == freezed
-          ? _value.setMe
-          : setMe // ignore: cast_nullable_to_non_nullable
-              as String,
+      dogs == freezed
+          ? _value._dogs
+          : dogs // ignore: cast_nullable_to_non_nullable
+              as List<Dog>,
     ));
   }
 }
@@ -86,14 +86,18 @@ class __$$_DogStateCopyWithImpl<$Res> extends _$DogStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_DogState implements _DogState {
-  const _$_DogState(this.setMe);
+  const _$_DogState(final List<Dog> dogs) : _dogs = dogs;
 
+  final List<Dog> _dogs;
   @override
-  final String setMe;
+  List<Dog> get dogs {
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_dogs);
+  }
 
   @override
   String toString() {
-    return 'DogState(setMe: $setMe)';
+    return 'DogState(dogs: $dogs)';
   }
 
   @override
@@ -101,12 +105,12 @@ class _$_DogState implements _DogState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DogState &&
-            const DeepCollectionEquality().equals(other.setMe, setMe));
+            const DeepCollectionEquality().equals(other._dogs, _dogs));
   }
 
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(setMe));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_dogs));
 
   @JsonKey(ignore: true)
   @override
@@ -115,12 +119,137 @@ class _$_DogState implements _DogState {
 }
 
 abstract class _DogState implements DogState {
-  const factory _DogState(final String setMe) = _$_DogState;
+  const factory _DogState(final List<Dog> dogs) = _$_DogState;
 
   @override
-  String get setMe => throw _privateConstructorUsedError;
+  List<Dog> get dogs => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$$_DogStateCopyWith<_$_DogState> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+mixin _$Dog {
+  String get dogId => throw _privateConstructorUsedError;
+  bool get flea => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $DogCopyWith<Dog> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DogCopyWith<$Res> {
+  factory $DogCopyWith(Dog value, $Res Function(Dog) then) =
+      _$DogCopyWithImpl<$Res>;
+  $Res call({String dogId, bool flea});
+}
+
+/// @nodoc
+class _$DogCopyWithImpl<$Res> implements $DogCopyWith<$Res> {
+  _$DogCopyWithImpl(this._value, this._then);
+
+  final Dog _value;
+  // ignore: unused_field
+  final $Res Function(Dog) _then;
+
+  @override
+  $Res call({
+    Object? dogId = freezed,
+    Object? flea = freezed,
+  }) {
+    return _then(_value.copyWith(
+      dogId: dogId == freezed
+          ? _value.dogId
+          : dogId // ignore: cast_nullable_to_non_nullable
+              as String,
+      flea: flea == freezed
+          ? _value.flea
+          : flea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_DogCopyWith<$Res> implements $DogCopyWith<$Res> {
+  factory _$$_DogCopyWith(_$_Dog value, $Res Function(_$_Dog) then) =
+      __$$_DogCopyWithImpl<$Res>;
+  @override
+  $Res call({String dogId, bool flea});
+}
+
+/// @nodoc
+class __$$_DogCopyWithImpl<$Res> extends _$DogCopyWithImpl<$Res>
+    implements _$$_DogCopyWith<$Res> {
+  __$$_DogCopyWithImpl(_$_Dog _value, $Res Function(_$_Dog) _then)
+      : super(_value, (v) => _then(v as _$_Dog));
+
+  @override
+  _$_Dog get _value => super._value as _$_Dog;
+
+  @override
+  $Res call({
+    Object? dogId = freezed,
+    Object? flea = freezed,
+  }) {
+    return _then(_$_Dog(
+      dogId == freezed
+          ? _value.dogId
+          : dogId // ignore: cast_nullable_to_non_nullable
+              as String,
+      flea == freezed
+          ? _value.flea
+          : flea // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Dog implements _Dog {
+  const _$_Dog(this.dogId, this.flea);
+
+  @override
+  final String dogId;
+  @override
+  final bool flea;
+
+  @override
+  String toString() {
+    return 'Dog(dogId: $dogId, flea: $flea)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Dog &&
+            const DeepCollectionEquality().equals(other.dogId, dogId) &&
+            const DeepCollectionEquality().equals(other.flea, flea));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(dogId),
+      const DeepCollectionEquality().hash(flea));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_DogCopyWith<_$_Dog> get copyWith =>
+      __$$_DogCopyWithImpl<_$_Dog>(this, _$identity);
+}
+
+abstract class _Dog implements Dog {
+  const factory _Dog(final String dogId, final bool flea) = _$_Dog;
+
+  @override
+  String get dogId => throw _privateConstructorUsedError;
+  @override
+  bool get flea => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(ignore: true)
+  _$$_DogCopyWith<_$_Dog> get copyWith => throw _privateConstructorUsedError;
 }

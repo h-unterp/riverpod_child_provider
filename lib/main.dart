@@ -35,10 +35,15 @@ Widget myWidget(BuildContext context, WidgetRef ref) {
   return PaginationView<String>(
     paginationViewType: PaginationViewType.listView,
     itemBuilder: (BuildContext context, String fid, int index) {
-      return Text(ref.watch(dogProvider(DogType.shiba)).setMe,
+      return Text(
+          ref
+              .watch(dogProvider(DogType.shiba).notifier)
+              .getDog("one")!
+              .flea
+              .toString(),
           style: const TextStyle(fontSize: 25));
     },
-    pageFetch: pageFetch,
+    pageFetch: ref.read(dogProvider(DogType.shiba).notifier).pageFetch,
     pullToRefresh: true,
     onError: (dynamic error) => const Center(
       child: Text('Some error occured. Sorry!'),
@@ -51,12 +56,6 @@ Widget myWidget(BuildContext context, WidgetRef ref) {
       child: CircularProgressIndicator(),
     ),
   );
-}
-
-Future<List<String>> pageFetch(int offset) async {
-  final List<String> nextUsersList =
-      List.generate(5, (int index) => ' - $offset$index');
-  return nextUsersList;
 }
 
 class _MyHomePageState extends ConsumerState<MyHomePage> {
@@ -72,18 +71,18 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(ref.watch(dogProvider(DogType.shiba)).setMe,
-                  style: const TextStyle(fontSize: 25)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(ref.watch(dogProvider(DogType.pittie)).setMe,
+              child: Text(
+                  ref
+                      .watch(dogProvider(DogType.shiba).notifier)
+                      .getDog("one")!
+                      .flea
+                      .toString(),
                   style: const TextStyle(fontSize: 25)),
             ),
             Flexible(child: myWidget(context, ref)),
             TextButton(
                 onPressed: () {
-                  ref.read(dogProvider(DogType.shiba).notifier).setIt("Hey");
+                  ref.read(dogProvider(DogType.shiba).notifier).setFlea("one");
                 },
                 child: const Text(
                   "Set it",
