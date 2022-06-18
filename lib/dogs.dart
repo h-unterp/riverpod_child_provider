@@ -19,11 +19,17 @@ final dogStateProvider =
 });
 
 final dogProvider = Provider.family<Dog?, String>((ref, id) {
-  return ref.watch(dogStateProvider.notifier).getDog(id);
+  List<Dog> dogs = ref.watch(dogStateProvider).dogs;
+  int idx = dogs.indexWhere((x) => x.dogId == id);
+  Dog dog = dogs[idx == -1 ? 0 : idx];
+  return dog;
 });
 
 final fleaProvider = Provider.family<String, String>((ref, id) {
-  return ref.watch(dogStateProvider.notifier).getDog(id)!.flea.toString();
+  List<Dog> dogs = ref.watch(dogStateProvider).dogs;
+  int idx = dogs.indexWhere((x) => x.dogId == id);
+  Dog dog = dogs[idx == -1 ? 0 : idx];
+  return dog.flea.toString();
 });
 
 class DogStateNotifier extends StateNotifier<DogState> {

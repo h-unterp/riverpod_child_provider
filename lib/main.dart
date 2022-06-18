@@ -54,7 +54,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
             ),
             TextButton(
                 onPressed: () {
-                  ref.read(dogStateProvider.notifier).setFlea("one");
+                  ref.read(dogStateProvider.notifier).setFlea('one');
                 },
                 child: const Text(
                   "Set it",
