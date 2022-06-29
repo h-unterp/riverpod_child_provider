@@ -20,6 +20,15 @@ class PittieState extends DogState {
   }
 }
 
+class ShibaState extends DogState {
+  final bool? quiet;
+  const ShibaState({bool? collar, this.quiet}) : super(collar: collar);
+
+  copyWith({bool? collar, bool? quiet}) {
+    return ShibaState(collar: collar, quiet: quiet);
+  }
+}
+
 final dogStateProvider =
     StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
         (ref, type) {
@@ -31,17 +40,17 @@ final dogStateProvider =
 });
 
 abstract class DogStateNotifier<DogStateType extends DogState>
-    extends StateNotifier<List<DogStateType>> {
-  DogStateNotifier() : super([]);
+    extends StateNotifier<DogStateType> {
+  DogStateNotifier(DogStateType state) : super(state);
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
-  PittieNotifier() : super();
+  PittieNotifier() : super(const PittieState(collar: null, meals: null));
   goTime() {
-    state = state.first.copyWith(meals: state.first.meals! + 1);
+    state = state.copyWith(meals: state.meals! + 1);
   }
 }
 
 class ShibaNotifier extends DogStateNotifier {
-  ShibaNotifier() : super();
+  ShibaNotifier() : super(const ShibaState(collar: null, quiet: null));
 }
