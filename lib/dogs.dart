@@ -6,19 +6,15 @@ part 'dogs.freezed.dart';
 enum DogType { pittie, shiba }
 
 @immutable
-class DogState {
+abstract class DogState {
   final bool? collar;
   const DogState({this.collar});
-
-  copyWith({bool? collar}) {
-    return DogState(collar: collar);
-  }
 }
 
 class PittieState extends DogState {
   final int? meals;
   const PittieState({bool? collar, this.meals}) : super(collar: collar);
-  @override
+
   copyWith({bool? collar, int? meals}) {
     return PittieState(collar: collar, meals: meals);
   }
@@ -36,7 +32,7 @@ final dogStateProvider =
 
 abstract class DogStateNotifier<DogStateType extends DogState>
     extends StateNotifier<DogStateType> {
-  DogStateNotifier() : super(const DogState());
+  DogStateNotifier() : super(DogStateType());
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
