@@ -42,20 +42,8 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("dogProvider ${ref.watch(dogProvider('one'))!.flea}",
-                  style: const TextStyle(fontSize: 25)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text("fleaProvider ${ref.watch(fleaProvider('one'))}",
-                  style: const TextStyle(fontSize: 25)),
-            ),
             TextButton(
-                onPressed: () {
-                  ref.read(dogStateProvider.notifier).setFlea('one');
-                },
+                onPressed: () {},
                 child: const Text(
                   "Set it",
                   style: TextStyle(fontSize: 25),

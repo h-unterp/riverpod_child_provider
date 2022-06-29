@@ -3,60 +3,29 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'dogs.freezed.dart';
 
-@freezed
-class DogState with _$DogState {
-  const factory DogState(List<Dog> dogs) = _DogState;
-}
+enum DogType { pittie, shiba }
 
-@freezed
-class Dog with _$Dog {
-  const factory Dog(String dogId, bool flea) = _Dog;
-}
+@immutable
+class DogState {}
 
 final dogStateProvider =
-    StateNotifierProvider<DogStateNotifier, DogState>((ref) {
-  return DogStateNotifier();
-});
-
-final dogProvider = Provider.family<Dog?, String>((ref, id) {
-  List<Dog> dogs = ref.watch(dogStateProvider).dogs;
-  int idx = dogs.indexWhere((x) => x.dogId == id);
-  Dog dog = dogs[idx == -1 ? 0 : idx];
-  return dog;
-});
-
-final fleaProvider = Provider.family<String, String>((ref, id) {
-  List<Dog> dogs = ref.watch(dogStateProvider).dogs;
-  int idx = dogs.indexWhere((x) => x.dogId == id);
-  Dog dog = dogs[idx == -1 ? 0 : idx];
-  return dog.flea.toString();
+    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
+        (ref, type) {
+  if (type == DogType.pittie) {
+    return PittieNotifier();
+  } else {
+    return ShibaNotifier();
+  }
 });
 
 class DogStateNotifier extends StateNotifier<DogState> {
-  DogStateNotifier() : super(const DogState([Dog("one", false)]));
+  DogStateNotifier() : super(DogState());
+}
 
-  setDog(Dog d) {
-    int idx = state.dogs.indexWhere((x) => x.dogId == d.dogId);
-    if (idx != -1) {
-      List<Dog> newList = List.from(state.dogs);
-      newList[idx] = d;
-      state = state.copyWith(dogs: newList);
-    } else {
-      state = state.copyWith(dogs: [...state.dogs, d]);
-    }
-  }
+class PittieNotifier extends DogStateNotifier {
+  PittieNotifier() : super();
+}
 
-  setFlea(String d) {
-    Dog dd = Dog(d, true);
-    setDog(dd);
-  }
-
-  Dog? getDog(String s) {
-    int idx = state.dogs.indexWhere((x) => x.dogId == s);
-    if (idx != -1) {
-      return state.dogs[idx];
-    } else {
-      return null;
-    }
-  }
+class ShibaNotifier extends DogStateNotifier {
+  ShibaNotifier() : super();
 }
