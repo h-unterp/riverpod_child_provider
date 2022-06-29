@@ -34,9 +34,9 @@ final dogStateProvider =
   }
 });
 
-class DogStateNotifier<DogType extends DogState>
-    extends StateNotifier<DogState> {
-  DogStateNotifier() : super(const DogState());
+class DogStateNotifier<DogStateType extends DogState>
+    extends StateNotifier<DogStateType> {
+  DogStateNotifier() : super();
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
