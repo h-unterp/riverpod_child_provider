@@ -31,14 +31,14 @@ final dogStateProvider =
 });
 
 abstract class DogStateNotifier<DogStateType extends DogState>
-    extends StateNotifier<DogStateType> {
-  DogStateNotifier() : super(DogStateType());
+    extends StateNotifier<List<DogStateType>> {
+  DogStateNotifier() : super([]);
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
   PittieNotifier() : super();
   goTime() {
-    state = state.copyWith(collar: true, meals: state.meals! + 1);
+    state = state.first.copyWith(meals: state.first.meals! + 1);
   }
 }
 
