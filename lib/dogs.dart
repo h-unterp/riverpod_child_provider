@@ -6,7 +6,19 @@ part 'dogs.freezed.dart';
 enum DogType { pittie, shiba }
 
 @immutable
-class DogState {}
+class DogState {
+  final String? flea;
+  const DogState({this.flea});
+
+  copyWith(String flea) {
+    return DogState(flea: flea);
+  }
+}
+
+class PittieState extends DogState {
+  final int? meals;
+  const PittieState({String? flea, this.meals}) : super(flea: flea);
+}
 
 final dogStateProvider =
     StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
@@ -18,12 +30,16 @@ final dogStateProvider =
   }
 });
 
-class DogStateNotifier extends StateNotifier<DogState> {
-  DogStateNotifier() : super(DogState());
+class DogStateNotifier<DogType extends DogState>
+    extends StateNotifier<DogState> {
+  DogStateNotifier() : super(const DogState());
 }
 
-class PittieNotifier extends DogStateNotifier {
+class PittieNotifier extends DogStateNotifier<PittieState> {
   PittieNotifier() : super();
+  goTime() {
+    state = state.copyWith(flea: 'flea');
+  }
 }
 
 class ShibaNotifier extends DogStateNotifier {
