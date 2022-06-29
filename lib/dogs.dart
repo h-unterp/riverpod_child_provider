@@ -7,17 +7,21 @@ enum DogType { pittie, shiba }
 
 @immutable
 class DogState {
-  final String? flea;
-  const DogState({this.flea});
+  final bool? collar;
+  const DogState({this.collar});
 
-  copyWith(String flea) {
-    return DogState(flea: flea);
+  copyWith({bool? collar}) {
+    return DogState(collar: collar);
   }
 }
 
 class PittieState extends DogState {
   final int? meals;
-  const PittieState({String? flea, this.meals}) : super(flea: flea);
+  const PittieState({bool? collar, this.meals}) : super(collar: collar);
+  @override
+  copyWith({bool? collar, int? meals}) {
+    return PittieState(collar: collar, meals: meals);
+  }
 }
 
 final dogStateProvider =
@@ -38,7 +42,7 @@ class DogStateNotifier<DogType extends DogState>
 class PittieNotifier extends DogStateNotifier<PittieState> {
   PittieNotifier() : super();
   goTime() {
-    state = state.copyWith(flea: 'flea');
+    state = state.copyWith(collar: true, meals: state.meals + 1);
   }
 }
 
