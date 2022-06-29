@@ -36,13 +36,13 @@ final dogStateProvider =
 
 class DogStateNotifier<DogStateType extends DogState>
     extends StateNotifier<DogStateType> {
-  DogStateNotifier() : super();
+  DogStateNotifier() : super(const DogState());
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
   PittieNotifier() : super();
   goTime() {
-    state = state.copyWith(collar: true, meals: state.meals + 1);
+    state = state.copyWith(collar: true, meals: state.meals! + 1);
   }
 }
 
