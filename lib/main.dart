@@ -7,11 +7,21 @@ void main() {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    PittieNotifier pittieNotif =
+        ref.read(dogStateProvider(DogType.pittie).notifier) as PittieNotifier;
+
+    pittieNotif.startDog();
+    pittieNotif.goTime(3);
+
+    ShibaNotifier shibaNotif =
+        ref.read(dogStateProvider(DogType.shiba).notifier) as ShibaNotifier;
+    shibaNotif.shibaWay(true);
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -34,6 +44,10 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    PittieState pittie =
+        ref.watch(dogStateProvider(DogType.pittie)) as PittieState;
+    ShibaState shiba = ref.watch(dogStateProvider(DogType.shiba)) as ShibaState;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -42,12 +56,18 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Set it",
-                  style: TextStyle(fontSize: 25),
-                ))
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  '''Pittie: Meals: ${pittie.meals.toString()} Collar: ${pittie.collar.toString()}''',
+                  style: const TextStyle(fontSize: 20)),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  '''Shiba: Collar: ${shiba.collar.toString()} Quiet: ${shiba.quiet.toString()}''',
+                  style: const TextStyle(fontSize: 20)),
+            ),
           ],
         ),
       ),
