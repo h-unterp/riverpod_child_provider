@@ -19,7 +19,8 @@ class PittieState extends DogState {
 
   @override
   copyWith({bool? collar, int? meals}) {
-    return PittieState(collar: collar, meals: meals);
+    return PittieState(
+        collar: collar ?? this.collar, meals: meals ?? this.meals);
   }
 }
 
@@ -29,7 +30,8 @@ class ShibaState extends DogState {
 
   @override
   copyWith({bool? collar, bool? quiet}) {
-    return ShibaState(collar: collar, quiet: quiet);
+    return ShibaState(
+        collar: collar ?? this.collar, quiet: quiet ?? this.quiet);
   }
 }
 
