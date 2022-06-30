@@ -9,10 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  flutter_riverpod: ^2.0.0-dev.9
+  flutter_riverpod: ^1.0.4
   build_runner: ^2.1.11
   freezed: ^2.0.3+1
   pagination_view: ^2.0.0
+  riverpod_infinite_scroll: ^1.0.4
+  infinite_scroll_pagination: ^3.2.0
 
 dev_dependencies:
   flutter_test:

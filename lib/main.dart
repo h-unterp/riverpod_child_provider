@@ -18,11 +18,6 @@ class MyApp extends ConsumerWidget {
     pittieNotif.startDog();
     pittieNotif.goTime(3);
 
-    ShibaNotifier shibaNotif =
-        ref.read(dogStateProvider(DogType.shiba).notifier) as ShibaNotifier;
-
-    shibaNotif.shibaWay(true);
-
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -47,7 +42,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
   Widget build(BuildContext context) {
     PittieState pittie =
         ref.watch(dogStateProvider(DogType.pittie)) as PittieState;
-    ShibaState shiba = ref.watch(dogStateProvider(DogType.shiba)) as ShibaState;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,12 +55,6 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                   '''Pittie: Meals: ${pittie.meals.toString()} Collar: ${pittie.collar.toString()}''',
-                  style: const TextStyle(fontSize: 20)),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  '''Shiba: Collar: ${shiba.collar.toString()} Quiet: ${shiba.quiet.toString()}''',
                   style: const TextStyle(fontSize: 20)),
             ),
           ],

@@ -208,7 +208,7 @@ packages:
       name: flutter_riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.9"
+    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -263,6 +263,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  infinite_scroll_pagination:
+    dependency: "direct main"
+    description:
+      name: infinite_scroll_pagination
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.2.0"
   io:
     dependency: transitive
     description:
@@ -388,7 +395,14 @@ packages:
       name: riverpod
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-dev.9"
+    version: "1.0.3"
+  riverpod_infinite_scroll:
+    dependency: "direct main"
+    description:
+      name: riverpod_infinite_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.6"
   shelf:
     dependency: transitive
     description:
@@ -408,6 +422,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliver_tools:
+    dependency: transitive
+    description:
+      name: sliver_tools
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.7"
   source_gen:
     dependency: transitive
     description:
