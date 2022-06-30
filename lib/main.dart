@@ -20,6 +20,7 @@ class MyApp extends ConsumerWidget {
 
     ShibaNotifier shibaNotif =
         ref.read(dogStateProvider(DogType.shiba).notifier) as ShibaNotifier;
+
     shibaNotif.shibaWay(true);
 
     return MaterialApp(
