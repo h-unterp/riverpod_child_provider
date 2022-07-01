@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
@@ -100,9 +102,8 @@ abstract class DogStateNotifier<DogStateType extends DogState>
           records: [...(state.records ?? []), ...ret!],
           nextPageKey: "haha") as DogStateType;
       state = hmm;
-      var x = 1;
     } catch (e) {
-      print("ERROR $e");
+      log("ERROR $e");
       state = state.copyWith(error: e.toString()) as DogStateType;
     }
     return ret;
@@ -117,7 +118,7 @@ class PittieNotifier extends DogStateNotifier<PittieState> {
 }
 
 final pittieProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
-  return ref.watch(dogStateProvider(DogType.pittie).notifier);
+  return ref.read(dogStateProvider(DogType.pittie).notifier);
 });
 
 final dogStateProvider =
@@ -131,3 +132,34 @@ final dogStateProvider =
     return PittieNotifier();
   }
 });
+
+/* *** Notifiers ****/
+class SimpleDogStateNotifier extends StateNotifier<DogState>
+    with PagedNotifierMixin<String?, String, DogState> {
+  SimpleDogStateNotifier() : super(const DogState());
+
+  @override
+  Future<List<String>?> load(String? page, int limit) async {
+    List<String>? ret;
+    try {
+      ret = await Future.delayed(const Duration(seconds: 0), () {
+        return [
+          "Woof",
+          "Woof1",
+          "Woof2",
+        ];
+      });
+      state = state.copyWith(
+          records: [...(state.records ?? []), ...ret!],
+          nextPageKey: "haha") as DogState;
+    } catch (e) {
+      log("ERROR $e");
+      state = state.copyWith(error: e.toString()) as DogState;
+    }
+    return ret;
+  }
+}
+
+final simpleDogStateProvider =
+    StateNotifierProvider<SimpleDogStateNotifier, DogState>(
+        (_) => SimpleDogStateNotifier());
