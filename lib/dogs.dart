@@ -13,7 +13,8 @@ class DogState extends PagedState<String?, String> {
       List<String>? records,
       String? error,
       String? nextPageKey,
-      List<String?>? previousPageKeys});
+      List<String?>? previousPageKeys})
+      : super(records: records, error: error, nextPageKey: nextPageKey);
 
   @override
   copyWith(
@@ -41,10 +42,16 @@ class PittieState extends DogState {
   const PittieState(
       {bool? collar,
       this.meals,
+      List<String>? records,
       String? error,
       String? nextPageKey,
       List<String?>? previousPageKeys})
-      : super(collar: collar);
+      : super(
+            collar: collar,
+            records: records,
+            error: error,
+            nextPageKey: nextPageKey,
+            previousPageKeys: previousPageKeys);
 
   @override
   copyWith(
@@ -54,7 +61,13 @@ class PittieState extends DogState {
       dynamic error,
       dynamic nextPageKey,
       List<String?>? previousPageKeys}) {
+    final sup = super.copyWith(
+        records: records,
+        error: error,
+        nextPageKey: nextPageKey,
+        previousPageKeys: previousPageKeys);
     return PittieState(
+        records: sup.records,
         collar: collar,
         error: error,
         nextPageKey: nextPageKey,
@@ -71,26 +84,35 @@ abstract class DogStateNotifier<DogStateType extends DogState>
   startDog() {
     state = state.copyWith(collar: true) as DogStateType;
   }
+
+  @override
+  Future<List<String>?> load(String? page, int limit) async {
+    List<String>? ret;
+    try {
+      ret = await Future.delayed(const Duration(seconds: 0), () {
+        return [
+          "Woof",
+          "Woof1",
+          "Woof2",
+        ];
+      });
+      var hmm = state.copyWith(
+          records: [...(state.records ?? []), ...ret!],
+          nextPageKey: "haha") as DogStateType;
+      state = hmm;
+      var x = 1;
+    } catch (e) {
+      print("ERROR $e");
+      state = state.copyWith(error: e.toString()) as DogStateType;
+    }
+    return ret;
+  }
 }
 
 class PittieNotifier extends DogStateNotifier<PittieState> {
   PittieNotifier() : super(const PittieState(collar: null, meals: null));
   goTime(int meals) {
     state = state.copyWith(meals: meals) as PittieState;
-  }
-
-  @override
-  Future<List<String>?> load(String? page, int limit) async {
-    return [
-      "Woof",
-      "Woof1",
-      "Woof2",
-      "Woof3",
-      "Woof4",
-      "Woof5",
-      "Woof6",
-      "Woof7"
-    ];
   }
 }
 
