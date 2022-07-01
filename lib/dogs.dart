@@ -133,33 +133,3 @@ final dogStateProvider =
   }
 });
 
-/* *** Notifiers ****/
-class SimpleDogStateNotifier extends StateNotifier<DogState>
-    with PagedNotifierMixin<String?, String, DogState> {
-  SimpleDogStateNotifier() : super(const DogState());
-
-  @override
-  Future<List<String>?> load(String? page, int limit) async {
-    List<String>? ret;
-    try {
-      ret = await Future.delayed(const Duration(seconds: 0), () {
-        return [
-          "Woof",
-          "Woof1",
-          "Woof2",
-        ];
-      });
-      state = state.copyWith(
-          records: [...(state.records ?? []), ...ret!],
-          nextPageKey: "haha") as DogState;
-    } catch (e) {
-      log("ERROR $e");
-      state = state.copyWith(error: e.toString()) as DogState;
-    }
-    return ret;
-  }
-}
-
-final simpleDogStateProvider =
-    StateNotifierProvider<SimpleDogStateNotifier, DogState>(
-        (_) => SimpleDogStateNotifier());
