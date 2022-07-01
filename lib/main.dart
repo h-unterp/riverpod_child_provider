@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:pagination_view/pagination_view.dart';
 import 'package:riverpod_child_provider/dogs.dart';
+import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -40,26 +42,14 @@ class MyHomePage extends ConsumerStatefulWidget {
 class _MyHomePageState extends ConsumerState<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    PittieState pittie =
-        ref.watch(dogStateProvider(DogType.pittie)) as PittieState;
-
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                  '''Pittie: Meals: ${pittie.meals.toString()} Collar: ${pittie.collar.toString()}''',
-                  style: const TextStyle(fontSize: 20)),
-            ),
-          ],
-        ),
-      ),
-    );
+        body: RiverPagedBuilder<String?, String>(
+      firstPageKey: null,
+      pullToRefresh: true,
+      provider: pittieProvider,
+      itemBuilder: (context, String item, index) => Text(item),
+      pagedBuilder: (controller, builder) =>
+          PagedListView(pagingController: controller, builderDelegate: builder),
+    ));
   }
 }

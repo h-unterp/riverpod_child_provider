@@ -80,11 +80,23 @@ class PittieNotifier extends DogStateNotifier<PittieState> {
   }
 
   @override
-  Future<List<String>?> load(String? page, int limit) {
-    // TODO: implement load
-    throw UnimplementedError();
+  Future<List<String>?> load(String? page, int limit) async {
+    return [
+      "Woof",
+      "Woof1",
+      "Woof2",
+      "Woof3",
+      "Woof4",
+      "Woof5",
+      "Woof6",
+      "Woof7"
+    ];
   }
 }
+
+final pittieProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
+  return ref.watch(dogStateProvider(DogType.pittie).notifier);
+});
 
 final dogStateProvider =
     StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
