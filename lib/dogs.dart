@@ -22,6 +22,10 @@ final simplePittieProvider =
 final dogStateProvider =
     StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
         (ref, type) {
+  ref.onDispose(() {
+    log("DISPOSED DSP");
+  });
+
   if (type == DogType.pittie) {
     PittieNotifier pittieNotifier = PittieNotifier();
     pittieNotifier.startDog;
