@@ -4,6 +4,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_infinite_scroll/riverpod_infinite_scroll.dart';
 
+final pittieProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
+  ref.onDispose(() {
+    log("DISPOSED causes error");
+  });
+  return ref.read(dogStateProvider(DogType.pittie).notifier);
+});
+
+final simplePittieProvider =
+    StateNotifierProvider<DogStateNotifier, DogState>((ref) {
+  ref.onDispose(() {
+    log("DISPOSED SIMPLE no error");
+  });
+  return PittieNotifier();
+});
+
+final dogStateProvider =
+    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
+        (ref, type) {
+  if (type == DogType.pittie) {
+    PittieNotifier pittieNotifier = PittieNotifier();
+    pittieNotifier.startDog;
+    return pittieNotifier;
+  } else {
+    return PittieNotifier();
+  }
+});
+
 enum DogType { pittie, shiba }
 
 /* *** State Objects ****/
@@ -90,18 +117,31 @@ abstract class DogStateNotifier<DogStateType extends DogState>
   @override
   Future<List<String>?> load(String? page, int limit) async {
     List<String>? ret;
+
     try {
-      ret = await Future.delayed(const Duration(seconds: 0), () {
-        return [
-          "Woof",
-          "Woof1",
-          "Woof2",
-        ];
-      });
-      var hmm = state.copyWith(
-          records: [...(state.records ?? []), ...ret!],
-          nextPageKey: "haha") as DogStateType;
-      state = hmm;
+      if (page != "haha") {
+        ret = await Future.delayed(const Duration(seconds: 0), () {
+          return [
+            "Woof",
+            "Woof1",
+            "Woof2",
+            "Woof3",
+            "Woof4",
+            "Woof5",
+            "Woof6",
+            "Woof7",
+            "Woof8",
+            "Woof9",
+            "Woof10",
+            "Woof11",
+            "Woof12",
+          ];
+        });
+
+        state = state.copyWith(
+            records: [...(state.records ?? []), ...ret!],
+            nextPageKey: "haha") as DogStateType;
+      }
     } catch (e) {
       log("ERROR $e");
       state = state.copyWith(error: e.toString()) as DogStateType;
@@ -116,50 +156,3 @@ class PittieNotifier extends DogStateNotifier<PittieState> {
     state = state.copyWith(meals: meals) as PittieState;
   }
 }
-
-final pittieProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
-  return ref.read(dogStateProvider(DogType.pittie).notifier);
-});
-
-final dogStateProvider =
-    StateNotifierProvider.family<DogStateNotifier, DogState, DogType>(
-        (ref, type) {
-  if (type == DogType.pittie) {
-    PittieNotifier pittieNotifier = PittieNotifier();
-    pittieNotifier.startDog;
-    return pittieNotifier;
-  } else {
-    return PittieNotifier();
-  }
-});
-
-/* *** Notifiers ****/
-class SimpleDogStateNotifier extends StateNotifier<DogState>
-    with PagedNotifierMixin<String?, String, DogState> {
-  SimpleDogStateNotifier() : super(const DogState());
-
-  @override
-  Future<List<String>?> load(String? page, int limit) async {
-    List<String>? ret;
-    try {
-      ret = await Future.delayed(const Duration(seconds: 0), () {
-        return [
-          "Woof",
-          "Woof1",
-          "Woof2",
-        ];
-      });
-      state = state.copyWith(
-          records: [...(state.records ?? []), ...ret!],
-          nextPageKey: "haha") as DogState;
-    } catch (e) {
-      log("ERROR $e");
-      state = state.copyWith(error: e.toString()) as DogState;
-    }
-    return ret;
-  }
-}
-
-final simpleDogStateProvider =
-    StateNotifierProvider<SimpleDogStateNotifier, DogState>(
-        (_) => SimpleDogStateNotifier());

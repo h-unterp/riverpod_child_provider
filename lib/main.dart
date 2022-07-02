@@ -42,8 +42,9 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
         body: RiverPagedBuilder<String?, String>(
       firstPageKey: '',
       pullToRefresh: true,
-      provider: pittieProvider,
-      itemBuilder: (context, String item, index) => Text(item),
+      provider: simplePittieProvider,
+      itemBuilder: (context, String item, index) =>
+          Text(item, style: Theme.of(context).textTheme.headline2),
       pagedBuilder: (controller, builder) =>
           PagedListView(pagingController: controller, builderDelegate: builder),
     ));
