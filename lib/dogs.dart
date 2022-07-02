@@ -28,7 +28,6 @@ final dogStateProvider =
 
   if (type == DogType.pittie) {
     PittieNotifier pittieNotifier = PittieNotifier();
-    pittieNotifier.startDog;
     return pittieNotifier;
   } else {
     return PittieNotifier();
