@@ -8,7 +8,7 @@ final pittieProvider = StateNotifierProvider<DogStateNotifier, DogState>((ref) {
   ref.onDispose(() {
     log("DISPOSED causes error");
   });
-  return ref.read(dogStateProvider(DogType.pittie).notifier);
+  return ref.watch(dogStateProvider(DogType.pittie).notifier);
 });
 
 final simplePittieProvider =

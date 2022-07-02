@@ -12,8 +12,7 @@ dependencies:
   flutter_riverpod: ^1.0.4
   build_runner: ^2.1.11
   freezed: ^2.0.3+1
-  riverpod_infinite_scroll:
-    path: /Users/hp/dev/riverpod_infinite_scroll
+  riverpod_infinite_scroll: ^1.0.6
   infinite_scroll_pagination: ^3.2.0
 
 dev_dependencies:

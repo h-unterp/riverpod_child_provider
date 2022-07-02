@@ -364,9 +364,9 @@ packages:
   riverpod_infinite_scroll:
     dependency: "direct main"
     description:
-      path: "/Users/hp/dev/riverpod_infinite_scroll"
-      relative: false
-    source: path
+      name: riverpod_infinite_scroll
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.6"
   shelf:
     dependency: transitive
